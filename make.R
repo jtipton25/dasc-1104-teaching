@@ -2,6 +2,10 @@
 # renv::snapshot()
 renv::restore()
 
+# if tinytex is needed
+library(tinytex)
+# tinytex::install_tinytex()
+
 # file to compile all .Rmd files to pdf
 library(rmarkdown)
 library(pagedown)
