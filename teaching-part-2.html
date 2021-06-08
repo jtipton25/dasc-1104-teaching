@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Teaching R in DASC 1104</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="John Tipton" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Teaching R in DASC 1104
+## R Part II
+### John Tipton
+### The University of Arkansas
+### 2021/06/07 (updated: 2021-06-07)
+
+---
+
+
+&lt;style type="text/css"&gt;
+.remark-slide-content {
+  font-size: 18px;
+  padding: 20px 80px 20px 80px;
+}
+.remark-code, .remark-inline-code {
+  background: #f0f0f0;
+}
+.remark-code {
+  font-size: 14px;
+}
+.huge .remark-code { /*Change made here*/
+  font-size: 200% !important;
+}
+.very-large .remark-code { /*Change made here*/
+  font-size: 150% !important;
+}
+.large .remark-code { /*Change made here*/
+  font-size: 125% !important;
+}
+.small .remark-code { /*Change made here*/
+  font-size: 75% !important;
+}
+
+.very-small .remark-code { /*Change made here*/
+  font-size: 50% !important;
+}
+.tiny .remark-code { /*Change made here*/
+  font-size: 40% !important;
+}
+&lt;/style&gt;
+
+
+
+
+# Learning R
+
+- [Introduction to tidy statistics](https://www.rstudio.com/resources/webinars/a-gentle-introduction-to-tidy-statistics-in-r/)
+
+- [RStudio primers](https://rstudio.cloud/learn/primers)
+
+- [Software carpentries](https://software-carpentry.org/lessons/index.html)
+
+    - [R for Reproducible Analyses](https://swcarpentry.github.io/r-novice-gapminder/)
+    
+    - [Programming with R](https://swcarpentry.github.io/r-novice-inflammation/)
+
+- [R for data science](https://r4ds.had.co.nz/)
+
+
+---
+
+
+# Materials 
+
+- Available on gitHub at XXXXXX 
+
+---
+
+# Course make file
+
+* In the loaded `dasc1104-teaching` project, the following command will generate all code
+
+
+
+```r
+# note: this will take a while, maybe 15-20 minutes
+source(here::here("make.R"))
+```
+
+# Lectures
+
+- unit_4_09_intro_R_Rmarkdown.Rmd
+
+- unit_4_R_10_intro_plotting.Rmd
+
+- unit_4_R_11_File_IO_and_basic_data_wrangling.Rmd
+
+- unit_4_R_12_Data_types_and_objects.Rmd
+
+- unit_4_R_13_Functional_programming.Rmd
+
+- unit_4_R_14_Intro_to_modeling.Rmd
+
+---
+
+## Brief recap of each unit
+
+---
+
+# Intro to R and Rmarkdown
+
+- Focus on reproducibility and workflow
+
+- Heavily inspired by [R for Reproducible Analyses](https://swcarpentry.github.io/r-novice-gapminder/)
+
+- Much of this was covered in part I
+
+---
+
+# Data visualization and plotting
+
+- Goal: to get students interested and excited when working with data
+
+    - Give enough background and language for students to seek out help online for data visualization
+    
+    - Emphasis on flexibility and exploration of data through visualization
+    
+    - Worked through a couple datasets to demonstrate how the visualization process works
+
+
+---
+
+# Data Visualization
+
+- Using `ggplot` and the `mtcars` data, generate a scatterplot of fuel milage (`mpg`) as a function of engine power (`hp`)
+
+- Explore how other variables in the `mtcars` dataset influence fuel milage
+
+---
+
+# File IO
+
+- Read the `game_goals.csv` file from the `data` folder with `read_csv()` (from the `tidyverse` library) and give this `data.frame` the name `dat`
+
+- Make sure you properly define the filepath
+
+- Many more specifics about reading files
+    - skipping lines
+    - defining column variable types
+    - different file delimiters
+    - missing values and `NA`s
+    - data comments
+
+---
+
+# Data manipulation
+
+## Most important `dplyr` (a part of the `tidyverse`) commands
+
+* Using pipes `%&gt;%`
+
+* Choose observations (rows) based on conditional values with `filter()`
+
+* Reorder the variables with `arrange()`
+
+* Select variables by name with `select()`
+
+* Create new variables with `mutate()`
+
+* Create summary variables with `summarize()` 
+    * `summarise()` if you are British 
+    
+* Group variables with `group_by()`    
+    
+
+# Pipes
+
+&gt; The itsy bitsy spider went up the water spout
+
+&gt; Down came the rain and washed the spider out
+
+&gt; Out came the sun and dried up all the rain
+
+&gt; And the itsy bitsy spider went up the spout again
+
+* multiple variable names, likely to make a typo
+
+```
+itsy_bitsy_spider_1 &lt;- went(itsy_bitsy_spider, up = "waterspout")
+itsy_bitsy_spider_2 &lt;- rain_down(itsy_bitsy_spider_1, washed = "out")
+itsy_bitsy_spider_3 &lt;- sun(itsy_bitsy_spider_2, dried = "rain")
+itsy_bitsy_spider_4 &lt;- went(itsy_bitsy_spider_3, up = "spout again")
+```
+
+
+* overwriting the data, likely to make errors
+
+```
+itsy_bitsy_spider &lt;- went(itsy_bitsy_spider, up = "waterspout")
+itsy_bitsy_spider &lt;- rain_down(itsy_bitsy_spider, washed = "out")
+itsy_bitsy_spider &lt;- sun(itsy_bitsy_spider, dried = "rain")
+itsy_bitsy_spider &lt;- went(itsy_bitsy_spider, up = "spout again")
+```
+
+---
+
+# Pipes
+
+&gt; The itsy bitsy spider went up the water spout
+
+&gt; Down came the rain and washed the spider out
+
+&gt; Out came the sun and dried up all the rain
+
+&gt; And the itsy bitsy spider went up the spout again
+
+* hard to read
+
+```
+went(
+    sun(
+        rain_down(
+            went(itsy_bitsy_spider, up = "waterspout"),
+            washed = "out"),
+        dried = "rain"),
+    up = "spout again"
+)
+```
+
+* Much better
+
+```
+itsy_bitsy_spider %&gt;%
+    went(up = "waterspout") %&gt;%
+    rain_down(washed = "out) %&gt;%
+    sun(dried = "rain") %&gt;%
+    went(up = "spout again")
+```
+
+---
+
+# Pipes
+
+* How does the pipe work?
+
+
+```r
+x &lt;- 1:10
+x %&gt;%
+  mean()
+```
+
+```
+## [1] 5.5
+```
+
+is equivalent to 
+
+
+```r
+x %&gt;%
+  mean(.)
+```
+
+```
+## [1] 5.5
+```
+
+where the `.` is a placeholder for the variable `x` which results in 
+
+
+```r
+mean(x)
+```
+
+```
+## [1] 5.5
+```
+
+
+
+---
+
+# Pipes
+
+* Pipes are not always the optimal choice
+
+* Try to avoid super long chains of pipes
+
+    * Instead: break up the pipe into intermediate objects
+
+* Pipes can't handle multiple inputs/outputs
+
+--
+
+* How to build a chain of pipes
+    
+    * Start by outlining a plan of attack
+    
+    * Write one small subset of the pipe chain at a time and verify the results
+
+
+* Challenge: Ask me questions about the `diamonds` data
+
+
+---
+
+# Data manipulation
+
+- Using the NHL goals dataset from before (named `dat`), `filter()` out all records where the `player` is `"Alex Ovechkin"` or `"Sidney Crosby"`. How many observations are there?
+
+- Using the NHL goals dataset, `arrange()` the observations in decreasing order (the `desc()` function) using the `penalty_min` variable. Who on the list has two games in the top 10 penalty minutes of the dataset?
+
+- Using the NHL dataset, `select()` the variables `player`, `shots`, and `goals`. Then, `mutate()` a new variable `shots_per_goal` by dividing the number of `shots` by the number of `goals`. Did you get any warnings/errors?
+
+- Using the NHL dataset, `summarize()` the total `goals` for each `player`. Using `arrange()`, who are the top 5 players in all time goals (in the data)?
+
+
+---
+
+# Relational data
+
+- Joining multiple datasets together
+
+- `left_join()`
+
+- `right_join()`
+
+- `inner_join()`
+
+- `outer_join()`
+
+
+---
+
+# Processing strings
+
+- Use the `stringr` package (part of the `tidyverse`)
+
+- Can use regular expressions
+
+
+```r
+(string1 &lt;- "This is a string")
+```
+
+```
+## [1] "This is a string"
+```
+
+```r
+(string2 &lt;- 'This is also a string')
+```
+
+```
+## [1] "This is also a string"
+```
+
+```r
+(string3 &lt;- 'This is a "quoted" string')
+```
+
+```
+## [1] "This is a \"quoted\" string"
+```
+
+---
+
+# String processing
+
+- `str_length()`
+
+- `str_c()`
+
+- `str_sub()`
+
+- others
+
+---
+
+# Factors
+
+- Factors are an atomic type for categorical data
+
+    - By default, these are unordered
+    
+    - Ordered factors can be used (good - better - best)
+    
+- `factor()`
+
+- `levels()`
+
+- `fct_recode()`
+
+- `fct_order()`
+
+
+---
+
+
+# Dates (not covered)
+
+
+---
+
+# Functional programming (currently not covered, but should be)
+
+- Code is for **humans** not computers
+
+- Functions make code readable to humans
+
+
+---
+
+# Keep it DRY
+
+
+* Don't Repeat Yourself
+
+* If you copy and paste code 3 or more times, write a function
+
+* Generate some data 
+
+
+```r
+df &lt;- data.frame(
+  x = rnorm(10), 
+  y = rnorm(10),
+  z = rnorm(10)
+)
+```
+
+* The above isn't DRY, but there is no chance of errors and the code is easy to understand
+
+---
+
+# DRY
+
+* Transform each variable to mean 0, standard deviation 1
+
+
+```r
+x_scaled &lt;- (df$x - mean(df$x, na.rm = TRUE)) / sd(df$x, na.rm = TRUE)
+y_scaled &lt;- (df$y - mean(df$y, na.rm = TRUE)) / sd(df$y, na.rm = TRUE)
+z_scaled &lt;- (df$z - mean(df$z, na.rm = TRUE)) / sd(df$y, na.rm = TRUE)
+```
+    
+--
+
+* Can you spot the error?
+
+--
+
+
+```r
+z_scaled &lt;- (df$z - mean(df$z, na.rm = TRUE)) / sd(`df$y`, na.rm = TRUE)
+```
+
+
+* write a function to do this
+
+
+```r
+rescale_variable &lt;- function(x) {
+  mean_x &lt;- mean(x, na.rm = TRUE)
+  sd_x   &lt;- sd(x, na.rm = TRUE) 
+  ## save the variable for the output
+  out &lt;- (x - mean_x) / sd_x
+  return(out)
+}
+```
+
+* Much less likely to make an error
+
+
+```r
+x_scaled &lt;- rescale_variable(df$x)
+y_scaled &lt;- rescale_variable(df$x)
+z_scaled &lt;- rescale_variable(df$z)
+```
+
+    
+---
+
+# Naming Functions
+
+* Name functions for human readers!
+
+
+```r
+# bad name -- what does this do?
+f()
+
+# what does this do?
+func()
+
+# longer names -- use autocomplete
+fill_missing_values()
+pre_process_data()
+```
+
+* Don't name your functions over functions or variables which already exist!
+
+
+```r
+mean &lt;- function(x) {}
+TRUE &lt;- function(x, y) {}
+```
+
+---
+
+# Naming Functions
+
+* Pick a naming convention and stick with it (I prefer snake case)
+
+
+```r
+# snake case
+my_function_name &lt;- function(x, y) {}
+# camel case
+myFunctionName &lt;- function(x, y) {}
+```
+
+* Try to reuse leading names -- allows for autocomplete
+
+
+```r
+# better
+check_input()
+check_parameters()
+check_inits()
+
+# not as good
+input_check()
+parameters_check()
+inits_check()
+```
+
+---    
+
+# For loops
+
+- for loops in R
+
+
+```r
+value &lt;- 0
+for (i in 1:100) {
+  value &lt;- value + i
+}
+value
+```
+
+```
+## [1] 5050
+```
+
+---
+
+# Writing functions
+
+- given a `data.frame`, calculate the mean of each column
+
+- write a function that returns the mean of each column
+
+
+---
+
+# The project
+
+- Idea: have each student construct a blog and perform a basic analysis using the skills learned in the class
+
+- Maybe next semester the project will be smaller in scope to cover more material
+
+- Have students use data to tell a story using summary statistics and data visualization
+
+---
+
+# Example projects
+
+
+- https://jdkincan.netlify.app/about/
+- https://arbeger-blog.netlify.app/
+- https://dasc-1104-alc.netlify.app/
+- https://dasc1104-blog-project.netlify.app/
+- https://tracef.netlify.app/
+- https://abbyharris.netlify.app/
+- https://akoster-dasc-1104-blog.netlify.app/
+- https://dasc-1104-bmarlow.netlify.app/
+- https://hpmcdona.netlify.app/
+- https://mrrice-dasc-1104-blog.netlify.app/
+- https://ntrogers.netlify.app/about/
+- https://nifty-wozniak-e3e1d9.netlify.app/about/
+- https://dasc-1104-calebwilliamsblog.netlify.app/about/
+- https://rjyates-dasc-blog.netlify.app/
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"navigation": {
+"scroll": false
+},
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
