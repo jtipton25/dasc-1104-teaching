@@ -127,7 +127,7 @@ class: center, middle, inverse, title-slide
 ## R Part I
 ### John Tipton
 ### The University of Arkansas
-### 2021/06/07 (updated: 2021-06-07)
+### 2021/06/07 (updated: 2021-06-09)
 
 ---
 
@@ -168,7 +168,7 @@ class: center, middle, inverse, title-slide
 
 # Materials
 
-- Available on gitHub at XXXXXX 
+- Available on gitHub at [https://github.com/jtipton25/dasc-1104-teaching](https://github.com/jtipton25/dasc-1104-teaching) 
 
 ---
 
@@ -308,14 +308,14 @@ glimpse(penguins)
 ```
 ## Rows: 344
 ## Columns: 8
-## $ species           [3m[38;5;246m&lt;fct&gt;[39m[23m Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adeli…
-## $ island            [3m[38;5;246m&lt;fct&gt;[39m[23m Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torger…
-## $ bill_length_mm    [3m[38;5;246m&lt;dbl&gt;[39m[23m 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, 37.8, 37.8, 41.1, 38.6, 34.6, 36.6, 38.7, 42.5, 34.4, 46.0, 37.8, 37.7, 35.9, 38.2, 38.8, 3…
-## $ bill_depth_mm     [3m[38;5;246m&lt;dbl&gt;[39m[23m 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, 17.1, 17.3, 17.6, 21.2, 21.1, 17.8, 19.0, 20.7, 18.4, 21.5, 18.3, 18.7, 19.2, 18.1, 17.2, 1…
-## $ flipper_length_mm [3m[38;5;246m&lt;int&gt;[39m[23m 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180, 182, 191, 198, 185, 195, 197, 184, 194, 174, 180, 189, 185, 180, 187, 183, 187, 172, 180, …
-## $ body_mass_g       [3m[38;5;246m&lt;int&gt;[39m[23m 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250, 3300, 3700, 3200, 3800, 4400, 3700, 3450, 4500, 3325, 4200, 3400, 3600, 3800, 3950, 3800, 3…
-## $ sex               [3m[38;5;246m&lt;fct&gt;[39m[23m male, female, female, NA, female, male, female, male, NA, NA, NA, NA, female, male, male, female, female, male, female, male, female, male, female, m…
-## $ year              [3m[38;5;246m&lt;int&gt;[39m[23m 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007,…
+## $ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, A…
+## $ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, To…
+## $ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0,…
+## $ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2,…
+## $ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180…
+## $ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250,…
+## $ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male, NA,…
+## $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 200…
 ```
 
 
@@ -519,6 +519,9 @@ airquality %&gt;%
 * Formatting and troubleshooting
 
 * The tinytex/latex problem
+
+    * `install.packages(&#39;tinytex&#39;)
+    * `tinytex::install_tinytex()`
 
 * python code in RMarkdown
 
