@@ -357,8 +357,6 @@ airquality %>%
 
 * Getting help with `?`
 ]
----
-
 
 
 ---
@@ -370,12 +368,11 @@ airquality %>%
     - loops, data structures, functions
     
 - But, I **don't** teach R as if it were a programming language
-
     - R is a programming language for **data science**
-    
+
     - Many "real" programmers don't like R because it is not a "progamming first" language
     
-        - R is a **data-science**-first language, don't get mad when it isn't what you want it to be
+        - R is a **data-science** first language, don't get mad when it isn't what you want it to be
     
     - Show how to do data science using R as a tool
     
